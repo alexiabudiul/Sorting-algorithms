@@ -1,0 +1,89 @@
+Sorting  Algorithms
+
+
+
+1. Bubble sort
+
+The reason why I chose to present this algorithm first it’s because bubble sort is a very common and used method of sorting. For many people, and also for me, this is the first sorting algorithm to learn in high school.
+Bubble sort uses the following idea: it goes through all the elements of the list and checks if two consecutive elements are in the correct order (which is, in our case, ascending). Using the “<” operator, we check if the first element is smaller than the second one. If it is, we continue to check the other elements (i.e. the second and the third element). If not, we swap them and move on, in the same way as mentioned above. After we reach the end of the list, we start to go again through the elements, from the beginning, until the list becomes completely sorted. This algorithm is stable.
+Here, we can improve the efficiency of the algorithm, by using the following assumption: after going across the list once, the maximum value will be at the end of it. This is because we compare all consecutive values, and it doesn’t matter where the maximum is in the array, it will be swapped with the other elements until it becomes the last one. Therefore, we can stop each time at position n-i, not at n. (i.e. the first time we stop at the n-th element, the second time at the (n-1)-th element and so on.) Furthermore, each time after crossing the list, we can check if any swaps were made; 	if not, it is clear that the array became sorted and we can stop the iteration, in order to make the algorithm more efficient.
+
+Complexity:  O(n^2)
+
+
+
+2. Insertion Sort
+
+Insertion sort also uses a very easy idea: split the given list into two imaginary parts, one sorted and the other one unsorted; take each element from the unsorted “array” and place it in the sorted one, such that it remains sorted. A very common and suggestive example is the way you sort cards in your hand. The left part is sorted, and the elements from the right are placed in their corresponding place.
+In order to have an existing sorted “array” from the first iteration, we will consider the first element already sorted and start applying the algorithm from the second element of the given list. If the first element from the unsorted “array” is less than the last element from the sorted one, then we compare it with the second last element from the sorted “array” and so on. After we find the perfect place for an element, we can continue to do the same with the others from the second part of the array, until we reach the end of it. Now, our list is sorted, and the order of the elements is preserved, thus insertion sort is also stable.
+
+Complexity:  O(n^2)
+
+
+
+3.  Selection Sort
+
+Selection sort also uses a very straightforward approach: it goes through the array n times, each time starting from position i (which will be 0 for the first iteration and increase with one at each step of the for loop), and will identify the smallest element from it. After finding the smallest element, it’ll swap it with the element on position i. Now, we can consider the first element being sorted and we can proceed to do the same with the rest of the elements: we look for the second minimum in the array and swap it with the second element and so on. Note that, with each iteration, we have a smaller and smaller unsorted array and a bigger and bigger sorted one. After reaching the last element, the list is sorted, but the relative order of the elements is not preserved, therefore selection sort is unstable.
+
+Complexity: O(n^2)
+
+
+
+
+4.  Quick Sort
+
+Quick sort is also an algorithm studied in high school, which uses the technique called Divide et Impera, or Divide and Conquer and has the following idea: find a pivot from the array (in our case, the last element, but it can be either the first one or a random element), and put the elements smaller than the pivot before it, and the ones bigger after it, until you have some smaller sublists which are sorted. Now you only need to merge back all the smaller sublists to get the final sorted one. This algorithm is unstable.
+The main part of quick sort is the partition, which means comparing the elements with the pivot and placing them in the correct position. Partition is done recursively, in order to sort the elements smaller and bigger than the pivot. 
+
+Complexity:  O(n*log(n))
+
+
+
+
+ 5. Merge Sort
+	
+Merge sort is an interesting algorithm used by big companies, which also uses the technique Divide and Conquer and divides the array into 2 smaller subarrays, then each of them into 2 other subarrays until we have only arrays of length 1. This concept is like parsing expressions in Propositional Logic, using trees. From the bigger, initial list, we will have 2 “children”; those “children” will have others 2 and so on, until we remain only with leaves. Now, we compare the “leaves brothers” and rewrite their “mom” as a sorted array. This process is repeated until the original list is overwritten with its corresponding sorted version. 
+Merge sort is a stable sorting algorithm.
+
+Complexity:  O(n*log(n))
+
+
+
+
+6.  Counting Sort
+
+Counting sort is a sorting algorithms that doesn’t need to compare the elements of the list to achieve the desired sorted one. It looks for the maximum value of the array and then creates a vector with that length, where it stores the frequency of all the elements; after doing this, it can easily generate the sorted list. The elements preserve their relative order, so this is a stable algorithm.
+ The only thing to mention is that the length of the array depends on the range of the values, so counting sort functions better when the range of the values is smaller than the length of the list. Also, it’s important to specify that you can use this algorithm only for positive numbers!
+Complexity:  O(n+m), where m is the length of the frequency vector.
+
+
+
+
+7. Bitonic Sort
+
+Bitonic sort has a very unusual way of sorting elements, but it’s highly interesting. It can only sort a bitonic sequence, which looks something like this: first k elements are in ascending order, and the last n-k elements are in decreasing order, where k>=0. More than that, it can only sort a list with 2^n elements! If you provide an input that doesn’t comply with this requirement, then it is useless. As a fun fact, because it has 2 different (or parallel) subsequences, it’s very useful for multi-purpose processor array (MPPA), specific to a certain architecture of a computer.
+Now let’s dive deeper into the explanation of this algorithm! No matter how many elements you have, the steps are the same: you consider every 2 consecutive elements to form the first (ascending) half of a bitonic sequence, and the following two elements, the other half (which is decreasing). For this to happen, you compare the elements and, if it’s the case, swap them to get the desired pattern. After you get multiple 4-element bitonic sequences, like the one above, you use the same idea! Take 2 consecutive 4-element bitonic sequences, and this time, the first bitonic sequence should be in ascending order, and the second one in descending order. Now you do not compare 2 consecutive elements in this bitonic sequence, you compare the first element with the third, and the second with the fourth -both in the first and second bigger sequences-. After this step, you will compare the first with the second and the third with the fourth, preserving the order of that sequence (which means that the first 4-element bitonic sequence should remain ascending and the second one, descending). And you use this reasoning until you get n bitonic sequences of size 1. Since all these sequences are sorted (given the fact that they have only one element), the final sequence is sorted. Yaaayy!!! It sounds complicated, but it’s not actually.
+More than that, bitonic sort is not even stable…
+
+Complexity:  O(log^2(n))
+
+
+
+
+8. Radix Sort
+
+Radix sort is an algorithm that uses another sorting algorithm that we already presented, which is Counting Sort. Soon, it will be much clearer why it uses this one in particular.
+ 	The idea radix uses is to compare the digits of all the numbers and order them in ascending order. You can use either the most significant digit first, or the least significant digit. The first step is to find the maximum and store its length, then use counting sort to memorize the frequency of their digits and order the elements correctly. Radix sort is stable because Counting sort is also stable.
+
+Complexity: O(d*(n+b)),  where d is the number of digits and b is the base of the number system being used.
+
+
+
+
+
+9. Shell sort
+
+
+	Shell sort is similar to insertion sort, and actually, at some point in the end, we use insertion sort to finish the sorting. This algorithm is able to compare elements that are far ahead from the others, which have for example h elements in between,  rather than comparing 2 consecutive ones. This way, fewer movements are done. The original list is split into smaller sublists, and each of them must have equal intervals to h. Now sort both sublists using insertion sort. This “gap” between the elements continues to decrease, until it becomes of length 1, and also, after each time h changes, another round of insertion sort is applied. Shell sort is an unstable sorting algorithm.
+ 
+Complexity: O(n^1.25)
